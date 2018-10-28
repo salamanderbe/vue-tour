@@ -5,7 +5,11 @@
 -   Customizable card content
 -   Customizable board lanes
 
+### Example
+
 ![Vue-kanban-board-example](https://github.com/fvanhove/vue-kanban-board/blob/master/public/Kanban-example.gif)
+
+The card content can be provided as a slot, content in the example above is not included.
 
 ## Install & basic usage
 
