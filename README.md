@@ -5,6 +5,8 @@
 -   Customizable card content
 -   Customizable board lanes
 
+![Vue-kanban-board-example](https://github.com/fvanhove/vue-kanban-board/blob/master/public/Kanban-example.gif)
+
 ## Install & basic usage
 
 ```bash
