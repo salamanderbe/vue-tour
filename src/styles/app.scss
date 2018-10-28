@@ -27,5 +27,23 @@ html {
 	font-weight: 400;
 	font-size: 14px;
 	margin-top: 0;
-	margin-bottom: 0;
+	margin-bottom: 15px;
+}
+.card-footer {
+	color: rgba(70, 73, 87, 0.6);
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 1px;
+	display: flex;
+	img {
+		margin-right: 10px;
+	}
+	.left {
+		display: flex;
+		margin-right: 20px;
+	}
+	.right {
+		display: flex;
+		margin-left: auto;
+	}
 }

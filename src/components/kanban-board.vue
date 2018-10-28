@@ -48,6 +48,11 @@ $highlight-c: #f4435a;
 					width: 100%;
 					padding: 15px 20px;
 					margin-bottom: 20px;
+					position: relative;
+					transition: 0.1s border;
+					&.errors {
+						box-shadow: 0 0 0 0.5px #f4435a;
+					}
 					.stage-input {
 						font-size: 14px;
 						border: none;
@@ -85,9 +90,39 @@ $highlight-c: #f4435a;
 						cursor: pointer;
 						transition: 0.3s background, 0.3s color;
 						user-select: none;
-						&:hover {
+						&:hover,
+						&.active {
 							background: $highlight-c;
 							color: #fff;
+						}
+					}
+					.add-users {
+						position: absolute;
+						background: #fff;
+						box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+						right: 20px;
+						top: 50px;
+						min-width: 225px;
+						.add-user-item {
+							padding: 15px 20px;
+							cursor: pointer;
+							display: flex;
+							transition: 0.3s background-color;
+							.add-user-image {
+								width: 30px;
+								height: 30px;
+								border-radius: 50%;
+								margin-right: 20px;
+							}
+							.add-user-text {
+								color: rgba($primary-c, 0.8);
+								font-size: 14px;
+								font-weight: 400;
+								margin: auto 0;
+							}
+							&:hover {
+								background-color: #f3f3f3;
+							}
 						}
 					}
 				}
@@ -142,15 +177,20 @@ $highlight-c: #f4435a;
                 <!-- Kanban stage header-->
                 <div v-if="!lane.hidden" class="board-header">
                     <p class="stage-title">{{ lane.name }}</p>
-                    <div class="add-task-container">
-                        <input v-model="taskSummary[lane.slug]" @keyup.enter="createNewTask(lane.slug)" type="text" class="stage-input" :placeholder="placeholder">
-                        <div class="add-cta">+</div>
+                    <div class="add-task-container" :class="{ errors : showLaneErrors === lane.slug }">
+                        <input v-model="itemSummary[lane.slug]" @keyup.enter="maybeAddItem(lane.slug)" type="text" class="stage-input" :placeholder="placeholder">
+                        <div class="add-cta" :class="{ active : showLaneUsers === lane.slug}" @click="maybeAddItem(lane.slug)">+</div>
+                        <div v-show="showLaneUsers === lane.slug" class="add-users">
+                            <div class="add-user-item" v-for="user in users" :key="user.id" @click="addItem(lane.slug, user)">
+                                <img class="add-user-image" :src="user.image">
+                                <span class="add-user-text">{{ user.name }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div v-else class="board-locked-header">
-
-                </div>
+                <!-- Kanban stage locked header-->
+                <div v-else class="board-locked-header"></div>
 
                 <!-- Kanban stage cards -->
                 <ul class="drag-inner-list" ref="list" :data-status="lane.slug">
@@ -213,12 +253,36 @@ export default {
 		gap: {
 			type: Number,
 			default: 40
+		},
+		/**
+		 * Boolean to define if the add button should also add a user
+		 * @default false
+		 * @type {Boolean}
+		 */
+		hasUsers: {
+			type: Boolean,
+			default: true
+		},
+		/**
+		 * Array of all assignable user objects
+		 * @default false
+		 * @type {Array}
+		 */
+		users: {
+			type: Array,
+			default: () => {
+				return []
+			}
 		}
 	},
 	components: { Card },
 	data() {
 		return {
-			taskSummary: {}
+			itemSummary: {},
+			itemUser: {},
+			showLaneUsers: '',
+			showLaneErrors: '',
+			unsavedItems: []
 		}
 	},
 	mounted() {
@@ -263,11 +327,41 @@ export default {
 		},
 		cardClicked(item) {
 			this.$emit('item-clicked', item)
+		},
+		maybeAddItem(lane) {
+			// Check if the summary of the
+			// given lane is not empty
+			this.showLaneErrors = ''
+			if (Object.keys(this.itemSummary).length === 0 || this.itemSummary[lane].length === 0) {
+				this.showLaneErrors = lane
+				return false
+			}
+
+			if (this.hasUsers) {
+				this.showLaneUsers = lane
+			} else {
+				this.addItem(lane)
+			}
+		},
+		addItem(lane, user) {
+			let item = {
+				summary: this.itemSummary[lane],
+				status: lane
+			}
+
+			if (this.hasUsers) {
+				item['user'] = user
+			}
+
+			this.showLaneUsers = ''
+            this.itemSummary[lane] = ''
+            this.unsavedItems.push(item)
+            this.$emit('item-created', item)
 		}
 	},
 	computed: {
 		localBlocks() {
-			return this.items
+			return this.unsavedItems.concat(this.items)
 		}
 	}
 }

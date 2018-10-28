@@ -3,7 +3,7 @@
     "description": "A VueJs kanban board.",
     "author": "Frederiek <frederiek@salamander.be>",
     "license": "MIT",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"main": "./dist/vue-kanban-board.common.js",
 	"keywords": [
 		"vue",
