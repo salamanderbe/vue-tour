@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+body,
+html {
+	font-family: 'Open Sans', sans-serif;
+	background: #f9fafb;
+}
+.card-header {
+	display: flex;
+	margin-bottom: 15px;
+}
+.card-image {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin: auto 0 auto 15px;
+}
+.card-title {
+	color: #464957;
+	font-weight: 700;
+	font-size: 16px;
+	margin-top: 0;
+	margin-bottom: 0;
+	flex: 1;
+}
+.card-description {
+	color: #464957;
+	font-weight: 400;
+	font-size: 14px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
