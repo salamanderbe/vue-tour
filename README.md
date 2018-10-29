@@ -39,7 +39,8 @@ npm install @salamander.be/vue-kanban-board
 </template>
 
 <script>
-import Board from './components/kanban-board.vue'
+import Board from '@salamander.be/vue-kanban-board'
+import '@salamander.be/vue-kanban-board/dist/vue-kanban-board.css'
 
 export default {
   name: 'app',
