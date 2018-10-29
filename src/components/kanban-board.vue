@@ -225,6 +225,7 @@ export default {
 				return [{ name: 'Todo', slug: 'todo' }, { name: 'In progress', slug: 'in-progress' }, { name: 'Done', slug: 'done' }]
 			}
 		},
+
 		/**
 		 * Array that lists all the kanban items
 		 * @default '[]'
@@ -236,6 +237,7 @@ export default {
 				return []
 			}
 		},
+
 		/**
 		 * String to show as placeholder text
 		 * @default 'Add a new task ...'
@@ -245,6 +247,7 @@ export default {
 			type: String,
 			default: 'Add a new task...'
 		},
+
 		/**
 		 * Number to define the gutter width
 		 * @default '15px'
@@ -254,6 +257,7 @@ export default {
 			type: Number,
 			default: 40
 		},
+
 		/**
 		 * Boolean to define if the add button should also add a user
 		 * @default false
@@ -261,8 +265,9 @@ export default {
 		 */
 		hasUsers: {
 			type: Boolean,
-			default: true
+			default: false
 		},
+
 		/**
 		 * Array of all assignable user objects
 		 * @default false
@@ -273,6 +278,16 @@ export default {
 			default: () => {
 				return []
 			}
+		},
+
+		/**
+		 * Boolean to define if items should be added to the lane automatically
+		 * @default false
+		 * @type {Boolean}
+		 */
+		autoAdd: {
+			type: Boolean,
+			default: true
 		}
 	},
 	components: { Card },
@@ -322,12 +337,26 @@ export default {
 			})
 	},
 	methods: {
+		/* 
+        | Get a filtered list
+        | of kanban items
+        */
 		getBlocks(status) {
 			return this.localBlocks.filter(item => item.status === status)
 		},
+
+		/* 
+        | Event to trigger when
+        | An item has been clicked
+        */
 		cardClicked(item) {
 			this.$emit('item-clicked', item)
 		},
+
+		/* 
+        | Method triggered when we 'try' to
+        | Add a new item to the Kanban board
+        */
 		maybeAddItem(lane) {
 			// Check if the summary of the
 			// given lane is not empty
@@ -343,20 +372,31 @@ export default {
 				this.addItem(lane)
 			}
 		},
+
+		/* 
+        | Method triggered when we add the item to the 
+        | Kanban board. Push the task on the unused
+        | tasks array.
+        */
 		addItem(lane, user) {
+			// Prep the item data
 			let item = {
 				summary: this.itemSummary[lane],
 				status: lane
 			}
 
-			if (this.hasUsers) {
-				item['user'] = user
-			}
+			// If we have users add them to the item
+			if (this.hasUsers && this.users.length > 0) item['user'] = user
 
+			// Clear the current inputs
 			this.showLaneUsers = ''
-            this.itemSummary[lane] = ''
-            this.unsavedItems.push(item)
-            this.$emit('item-created', item)
+			this.itemSummary[lane] = ''
+
+			// Add the item to the unsaved items if we are suppose to
+			if (this.autoAdd) this.unsavedItems.push(item)
+
+			// Send an event to inform an item has been added
+			this.$emit('item-created', item)
 		}
 	},
 	computed: {

@@ -1,13 +1,13 @@
 <template>
     <div id="app">
-        <board :items="items" :lanes="lanes" :users="users" v-on:item-updated="handleItemUpdated" v-on:item-clicked="handleItemClicked" v-on:item-created="handleItemCreated">
+        <board :items="items" :lanes="lanes" :hasUsers="true" :users="users" v-on:item-updated="handleItemUpdated" v-on:item-clicked="handleItemClicked" v-on:item-created="handleItemCreated">
             <template scope="props">
-                <div class="card-header">
-                    <p class="card-title">{{ props.data.summary }}</p>
-                    <img class="card-image" src="./assets/logo.jpg">
+                <div class="kb-card-header">
+                    <p class="kb-card-title">{{ props.data.summary }}</p>
+                    <img class="kb-card-image" src="./assets/logo.jpg">
                 </div>
-                <p class="card-description">{{ props.data.description }}</p>
-                <div class="card-footer">
+                <p class="kb-card-description">{{ props.data.description }}</p>
+                <div class="kb-card-footer">
                     <span class="left"><img src="/check.svg">2/5</span>
                     <span class="left"><img src="/bubble.svg">5</span>
                     <span class="right"><img src="/clock.svg">Tomorrow</span>

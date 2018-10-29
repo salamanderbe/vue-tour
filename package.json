@@ -3,7 +3,7 @@
     "description": "A VueJs kanban board.",
     "author": "Frederiek <frederiek@salamander.be>",
     "license": "MIT",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"main": "./dist/vue-kanban-board.common.js",
 	"keywords": [
 		"vue",
@@ -45,6 +45,10 @@
 		"plugins": {
 			"autoprefixer": {}
 		}
+    },
+    "repository": {
+		"type": "git",
+		"url": "https://github.com/salamanderbe/vue-kanban-board"
 	},
 	"files": [
 		"dist/*",
