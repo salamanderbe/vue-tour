@@ -12,6 +12,9 @@
 
 The card content can be provided as a slot, content in the example above is not included in the library.
 
+### Demo
+https://salamanderbe.github.io/vue-kanban-board/index.html
+
 ## Install & basic usage
 
 ```bash
