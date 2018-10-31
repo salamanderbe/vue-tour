@@ -26,6 +26,10 @@
 		"node-sass": "^4.9.0",
 		"sass-loader": "^7.0.1",
 		"dragula": "^3.7.2"
+    },
+    "repository": {
+		"type": "git",
+		"url": "https://github.com/salamanderbe/vue-kanban-board"
 	},
 	"eslintConfig": {
 		"root": true,
