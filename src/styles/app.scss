@@ -4,17 +4,17 @@ html {
 	font-family: 'Open Sans', sans-serif;
 	background: #f9fafb;
 }
-.card-header {
+.kb-card-header {
 	display: flex;
 	margin-bottom: 15px;
 }
-.card-image {
+.kb-card-image {
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;
 	margin: auto 0 auto 15px;
 }
-.card-title {
+.kb-card-title {
 	color: #464957;
 	font-weight: 700;
 	font-size: 16px;
@@ -22,14 +22,14 @@ html {
 	margin-bottom: 0;
 	flex: 1;
 }
-.card-description {
+.kb-card-description {
 	color: #464957;
 	font-weight: 400;
 	font-size: 14px;
 	margin-top: 0;
 	margin-bottom: 15px;
 }
-.card-footer {
+.kb-card-footer {
 	color: rgba(70, 73, 87, 0.6);
 	font-size: 12px;
 	font-weight: 400;

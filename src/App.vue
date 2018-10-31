@@ -1,16 +1,16 @@
 <template>
     <div id="app">
-        <board :items="items" :lanes="lanes" :users="users" v-on:item-updated="handleItemUpdated" v-on:item-clicked="handleItemClicked" v-on:item-created="handleItemCreated">
+        <board :items="items" :lanes="lanes" :hasUsers="true" :users="users" v-on:item-updated="handleItemUpdated" v-on:item-clicked="handleItemClicked" v-on:item-created="handleItemCreated">
             <template scope="props">
-                <div class="card-header">
-                    <p class="card-title">{{ props.data.summary }}</p>
-                    <img class="card-image" src="./assets/logo.jpg">
+                <div class="kb-card-header">
+                    <p class="kb-card-title">{{ props.data.summary }}</p>
+                    <img class="kb-card-image" src="./assets/logo.jpg">
                 </div>
-                <p class="card-description">{{ props.data.description }}</p>
-                <div class="card-footer">
-                    <span class="left"><img src="/check.svg">2/5</span>
-                    <span class="left"><img src="/bubble.svg">5</span>
-                    <span class="right"><img src="/clock.svg">Tomorrow</span>
+                <p class="kb-card-description">{{ props.data.description }}</p>
+                <div class="kb-card-footer">
+                    <span class="left"><img src="./assets/check.svg">2/5</span>
+                    <span class="left"><img src="./assets/bubble.svg">5</span>
+                    <span class="right"><img src="./assets/clock.svg">Tomorrow</span>
                 </div>
             </template>
         </board>
@@ -33,18 +33,18 @@ export default {
 				{ status: 'todo', summary: 'This is a longer TODO task', description: 'Quisque non tellus orci ac auctor augue mauris augue neque. Vitae tortor condimentum lacinia quis vel.' },
 				{ status: 'todo', summary: 'This is an even longer TODO task', description: 'Quisque non tellus orci ac auctor augue mauris augue neque. Vitae tortor condimentum lacinia quis vel.' }
 			],
-			users: [{ id: 1, image: '/logo.jpg', name: 'Default user 1' }, { id: 2, image: '/logo.jpg', name: 'Default user 2' }, { id: 3, image: '/logo.jpg', name: 'Default user 3' }]
+			users: [{ id: 1, image: './logo.jpg', name: 'Default user 1' }, { id: 2, image: './logo.jpg', name: 'Default user 2' }, { id: 3, image: './logo.jpg', name: 'Default user 3' }]
 		}
 	},
 	methods: {
 		handleItemUpdated() {
-			console.log('block updated')
+			// console.log('block updated')
 		},
 		handleItemClicked() {
-			console.log('block clicked')
+			// console.log('block clicked')
 		},
 		handleItemCreated() {
-			console.log('item created')
+			// console.log('item created')
 		}
 	}
 }

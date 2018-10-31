@@ -1,9 +1,9 @@
 {
-    "name": "@salamander.be/vue-kanban-board",
-    "description": "A VueJs kanban board.",
-    "author": "Frederiek <frederiek@salamander.be>",
-    "license": "MIT",
-	"version": "0.1.5",
+	"name": "@salamander.be/vue-kanban-board",
+	"description": "A VueJs kanban board.",
+	"author": "Frederiek <frederiek@salamander.be>",
+	"license": "MIT",
+	"version": "0.1.7",
 	"main": "./dist/vue-kanban-board.common.js",
 	"keywords": [
 		"vue",
@@ -12,6 +12,7 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
+		"docs": "vue-cli-service build --dest docs",
 		"build-bundle": "vue-cli-service build --target lib --name vue-kanban-board ./src/components/index.js",
 		"lint": "vue-cli-service lint"
 	},
@@ -26,8 +27,8 @@
 		"node-sass": "^4.9.0",
 		"sass-loader": "^7.0.1",
 		"dragula": "^3.7.2"
-    },
-    "repository": {
+	},
+	"repository": {
 		"type": "git",
 		"url": "https://github.com/salamanderbe/vue-kanban-board"
 	},
