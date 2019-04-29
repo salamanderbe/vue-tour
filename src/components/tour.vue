@@ -209,6 +209,7 @@ export default {
                 ]
             }
         },
+
         text: {
             type: Object,
             default: () => {
@@ -219,6 +220,7 @@ export default {
                 }
             }
         },
+
         theme: {
             type: Object,
             default: () => {
@@ -228,10 +230,16 @@ export default {
                 }
             }
         },
+
         blurEl: {
             required: false,
             type: String,
             default: '.can-tour-blur'
+        },
+
+        debug: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -242,7 +250,9 @@ export default {
     }),
 
     mounted() {
+        const watched = localStorage.getItem('vue-tour-viewed');
 
+        if (!this.debug && watched !== null && !!watched === true) this.open = false
     },
 
     methods: {
@@ -258,6 +268,7 @@ export default {
 
         close() {
             this.open = false
+            localStorage.setItem('vue-tour-viewed', true);
         },
 
         scale() {

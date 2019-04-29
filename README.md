@@ -8,7 +8,7 @@
 
 ### Example
 
-![Vue-tour-example]()
+![Vue-tour-example](https://github.com/salamanderbe/vue-tour/blob/master/public/Tour-example.gif)
 
 ### Demo
 

@@ -146,7 +146,7 @@ $grid-size: 1100px;
                 <div class="dummy dummy-text"></div>
             </div>
         </div>
-        <tour :steps="steps" :text="text" :theme="theme"></tour>
+        <tour :steps="steps" :text="text" :theme="theme" :debug="true"></tour>
     </div>
 </template>
 
@@ -159,17 +159,17 @@ export default {
     data: () => ({
         steps: [
             {
-                preview: '/example-1.png',
+                preview: './example-1.png',
                 title: 'Step 1',
                 description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. '
             },
             {
-                preview: '/example-1.png',
+                preview: './Gantt-example.gif',
                 title: 'Step 2',
                 description: 'Hello, I\'m the second step I look like the first step but you can go both back and forth.'
             },
             {
-                preview: '/example-1.png',
+                preview: './Kanban-example.gif',
                 title: 'Step 3',
                 description: 'Congratz, I am the second step in this 3 step tuturial. If you reached me that means you have reached the end.'
             },
