@@ -124,7 +124,7 @@ $grid-size: 1100px;
 
 <template>
     <div id="app">
-        <div class="content">
+        <div class="can-tour-blur content">
             <div class="navbar">
                 <div class="dummy dummy-logo">Logo</div>
                 <div class="dummy dummy-search">Search...</div>
@@ -166,12 +166,18 @@ export default {
             {
                 preview: '/example-1.png',
                 title: 'Step 2',
-                description: 'Congratz, I am the second step in this 2 step tuturial. If you reached me that means you have reached the end.'
+                description: 'Hello, I\'m the second step I look like the first step but you can go both back and forth.'
+            },
+            {
+                preview: '/example-1.png',
+                title: 'Step 3',
+                description: 'Congratz, I am the second step in this 3 step tuturial. If you reached me that means you have reached the end.'
             },
         ],
         text: {
             next_cta: 'Next',
-            prev_cta: 'Previous'
+            prev_cta: 'Previous',
+            restart_cta: 'Restart'
         },
         theme: {
             color: '#009de0',

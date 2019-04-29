@@ -7,6 +7,17 @@
     height: 492px;
     background: #fff;
     box-shadow: -6px 0 12px rgba(0, 0, 0, 0.06);
+    z-index: 1001;
+    transition: all 0.2s;
+    &.is-scaled {
+        height: 80vh;
+        width: 650px;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
     .close,
     .scale {
         position: absolute;
@@ -25,6 +36,12 @@
     }
     .scale {
         right: 56px;
+        &.is-scaled {
+            right: 30px;
+            path: {
+                fill: #333;
+            }
+        }
     }
     .step {
         height: 100%;
@@ -98,53 +115,77 @@
                 &:hover {
                     opacity: 0.7;
                 }
+                &.ml-auto {
+                    margin-left: auto;
+                }
             }
         }
     }
 }
+.tour-popover {
+    position: fixed;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.4);
+    height: 100vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    display: flex;
+    cursor: pointer;
+}
 </style>
 
-<template>
-    <div class="tour-preview" v-if="open" :style="{ 'border-radius': theme.radius }">
-        <template v-for="(step, key) in steps">
-            <div v-if="currentStep === key" class="step" :key="key">
+<style lang="scss">
+.tour-blurred {
+    filter: blur(4px);
+}
+</style>
 
-                <svg @click="scale" class="scale" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-                    <g>
+
+<template>
+    <div v-if="open">
+        <div v-if="scaled" @click="scale" class="tour-popover"></div>
+        <div class="tour-preview" :style="{ 'border-radius': theme.radius }" :class="{ 'is-scaled' : scaled}">
+            <template v-for="(step, key) in steps">
+                <div v-if="currentStep === key" class="step" :key="key">
+
+                    <svg @click="scale" class="scale" :class="{ 'is-scaled' : scaled }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                         <g>
                             <g>
                                 <g>
-                                    <path fill="#255fff" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
+                                    <g>
+                                        <path fill="#255fff" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
+                                    </g>
                                 </g>
                             </g>
                         </g>
-                    </g>
-                </svg>
+                    </svg>
 
-                <svg @click="close" class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-                    <g>
+                    <svg v-if="!scaled" @click="close" class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                         <g>
-                            <path fill="#333" d="M6-1.2c.374 0 .678.303.678.678v5.844h5.844a.678.678 0 1 1 0 1.356H6.678v5.844a.678.678 0 1 1-1.356 0V6.678H-.522a.678.678 0 1 1 0-1.356h5.844V-.522c0-.375.304-.678.678-.678z" />
+                            <g>
+                                <path fill="#333" d="M6-1.2c.374 0 .678.303.678.678v5.844h5.844a.678.678 0 1 1 0 1.356H6.678v5.844a.678.678 0 1 1-1.356 0V6.678H-.522a.678.678 0 1 1 0-1.356h5.844V-.522c0-.375.304-.678.678-.678z" />
+                            </g>
                         </g>
-                    </g>
-                </svg>
+                    </svg>
 
-                <div class="teaser">
-                    <img :src="step.preview" :alt="step.title">
-                </div>
-                <div class="content">
-                    <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
-                    <p class="description">{{ step.description }}</p>
-                    <div class="footer">
-                        <div class="footer-dots">
-                            <div v-for="dot in stepCount" :key="dot" class="dot" :style="{ background: ((dot - 1 === currentStep) ? theme.color : '#e6eaee') }"></div>
+                    <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <img :src="step.preview" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                    </div>
+                    <div class="content">
+                        <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
+                        <p class="description">{{ step.description }}</p>
+                        <div class="footer">
+                            <div class="footer-dots">
+                                <div v-for="dot in stepCount" :key="dot" class="dot" :style="{ background: ((dot - 1 === currentStep) ? theme.color : '#e6eaee') }"></div>
+                            </div>
+                            <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ text.prev_cta }}</div>
+                            <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? text.next_cta : text.restart_cta }}</div>
                         </div>
-                        <div class="footer-link" @click="prev()">{{ text.prev_cta }}</div>
-                        <div class="footer-btn" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ text.next_cta }}</div>
                     </div>
                 </div>
-            </div>
-        </template>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -173,7 +214,8 @@ export default {
             default: () => {
                 return {
                     next_cta: 'Next',
-                    prev_cta: 'Previous'
+                    prev_cta: 'Previous',
+                    restart_cta: 'Restart'
                 }
             }
         },
@@ -185,12 +227,18 @@ export default {
                     radius: '2px'
                 }
             }
+        },
+        blurEl: {
+            required: false,
+            type: String,
+            default: '.can-tour-blur'
         }
     },
 
     data: () => ({
         currentStep: 0,
-        open: true
+        open: true,
+        scaled: false
     }),
 
     mounted() {
@@ -213,8 +261,9 @@ export default {
         },
 
         scale() {
-
-        }
+            this.scaled = !this.scaled
+            document.querySelector(this.blurEl).classList.toggle('tour-blurred')
+        },
     },
 
     computed: {
