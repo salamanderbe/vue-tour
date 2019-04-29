@@ -3,7 +3,7 @@
 	"description": "A VueJs tour component.",
 	"author": "Frederiek <frederiek@salamander.be>",
 	"license": "MIT",
-	"version": "0.0.1",
+	"version": "0.1.2",
 	"main": "./dist/vue-tour.common.js",
 	"keywords": [
 		"vue",
@@ -13,7 +13,7 @@
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
 		"docs": "vue-cli-service build --dest docs",
-		"build-bundle": "vue-cli-service build --target lib --name vue-kanban-board ./src/components/index.js",
+		"build-bundle": "vue-cli-service build --target lib --name vue-tour ./src/components/index.js",
 		"lint": "vue-cli-service lint"
 	},
 	"dependencies": {

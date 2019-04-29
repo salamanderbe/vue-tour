@@ -2,9 +2,9 @@
 
 ### Features & characteristics:
 
--   Customizable steps
--   Customizable styles
--   Customizable text
+-  Customizable steps
+-  Customizable styles
+-  Customizable text
 
 ### Example
 
@@ -22,13 +22,14 @@ npm install @salamander.be/vue-tour
 
 ```vue
 <template>
-	<div id="app">
-		<tour :steps="steps" :text="text" :theme="theme"></tour>
-	</div>
+  <div id="app">
+    <tour :steps="steps" :text="text" :theme="theme"></tour>
+  </div>
 </template>
 
 <script>
-import Tour from './components/tour.vue'
+import Tour from '@salamander.be/vue-tour'
+import '@salamander.be/vue-tour/dist/vue-tour.css'
 
 export default {
   name: 'app',
@@ -54,7 +55,9 @@ export default {
     theme: {
       color: '#009de0',
       radius: '2px'
-    }
+    },
+    blurEl: '.can-tour-blur',
+    debug: true
   })
 }
 </script>
