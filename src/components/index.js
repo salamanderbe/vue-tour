@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import KanbanBoard from './kanban-board.vue'
+import Tour from './tour.vue'
 
-Vue.component('KanbanBoard', KanbanBoard)
+Vue.component('Tour', Tour)
 
-export default KanbanBoard
+export default Tour

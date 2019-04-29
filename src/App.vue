@@ -1,51 +1,182 @@
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Lato:400,600,700");
+
+body,
+html {
+    font-family: "Lato", sans-serif;
+    background: #f9fafb;
+    margin: 0;
+}
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+</style>
+
+<style lang="scss" scoped>
+$grid-size: 1100px;
+.content {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+}
+.dummy {
+    height: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #e6e6e6;
+    border-radius: 4px;
+    color: #b1b1b1;
+    line-height: 10px;
+    font-size: 14px;
+    padding: 10px;
+}
+.navbar {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 30px;
+    .dummy-logo {
+        margin-right: auto;
+        width: 100px;
+        text-align: center;
+    }
+    .dummy-search {
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+    }
+    .dummy-profile {
+        margin-left: auto;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        padding: 0px;
+    }
+    .dummy-profile-text {
+        margin-left: 10px;
+        height: 14px;
+        width: 100px;
+        padding: 0px;
+    }
+}
+.crumbs {
+    margin-top: 30px;
+    display: flex;
+    max-width: $grid-size;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 30px;
+    width: 100%;
+    .dummy-crumb {
+        width: 30px;
+    }
+    .dummy-crumb-text {
+        margin-left: 10px;
+        height: 14px;
+        width: 100px;
+        padding: 0px;
+    }
+    .dummy-btn {
+        margin-left: auto;
+        width: 100px;
+        text-align: center;
+    }
+}
+.page {
+    display: flex;
+    margin-top: 30px;
+    padding: 0 15px;
+    max-width: $grid-size;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    .dummy-item {
+        width: 25%;
+        width: calc(25% - 30px);
+        height: 300px;
+        margin: 0 15px;
+    }
+}
+.footer {
+    max-width: $grid-size;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 30px;
+    margin-top: auto;
+    margin-bottom: 7.5px;
+    .dummy-text {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 10px;
+        padding: 0px;
+    }
+}
+</style>
+
 <template>
     <div id="app">
-        <board :items="items" :lanes="lanes" :hasUsers="true" :users="users" v-on:item-updated="handleItemUpdated" v-on:item-clicked="handleItemClicked" v-on:item-created="handleItemCreated">
-            <template scope="props">
-                <div class="kb-card-header">
-                    <p class="kb-card-title">{{ props.data.summary }}</p>
-                    <img class="kb-card-image" src="./assets/logo.jpg">
-                </div>
-                <p class="kb-card-description">{{ props.data.description }}</p>
-                <div class="kb-card-footer">
-                    <span class="left"><img src="./assets/check.svg">2/5</span>
-                    <span class="left"><img src="./assets/bubble.svg">5</span>
-                    <span class="right"><img src="./assets/clock.svg">Tomorrow</span>
-                </div>
-            </template>
-        </board>
+        <div class="content">
+            <div class="navbar">
+                <div class="dummy dummy-logo">Logo</div>
+                <div class="dummy dummy-search">Search...</div>
+                <div class="dummy dummy-profile"></div>
+                <div class="dummy dummy-profile-text"></div>
+            </div>
+            <div class="crumbs">
+                <div class="dummy dummy-crumb"></div>
+                <div class="dummy dummy-crumb-text"></div>
+                <div class="dummy dummy-btn">Create</div>
+            </div>
+            <div class="page">
+                <div class="dummy dummy-item"></div>
+                <div class="dummy dummy-item"></div>
+                <div class="dummy dummy-item"></div>
+                <div class="dummy dummy-item"></div>
+            </div>
+            <div class="footer">
+                <div class="dummy dummy-text"></div>
+            </div>
+        </div>
+        <tour :steps="steps" :text="text" :theme="theme"></tour>
     </div>
 </template>
 
 <script>
-import Board from './components/kanban-board.vue'
+import Tour from './components/tour.vue'
 
 export default {
-	name: 'app',
-	components: {
-		Board
-	},
-	data() {
-		return {
-			lanes: [{ name: 'Todo', slug: 'todo' }, { name: 'In progress', slug: 'in-progress' }, { name: 'Done', slug: 'done' }],
-			items: [
-				{ status: 'todo', summary: 'This is a TODO task', description: 'Quisque non tellus orci ac auctor augue mauris augue neque. Vitae tortor condimentum lacinia quis vel.' },
-				{ status: 'todo', summary: 'This is a longer TODO task', description: 'Quisque non tellus orci ac auctor augue mauris augue neque. Vitae tortor condimentum lacinia quis vel.' },
-				{ status: 'todo', summary: 'This is an even longer TODO task', description: 'Quisque non tellus orci ac auctor augue mauris augue neque. Vitae tortor condimentum lacinia quis vel.' }
-			],
-			users: [{ id: 1, image: './logo.jpg', name: 'Default user 1' }, { id: 2, image: './logo.jpg', name: 'Default user 2' }, { id: 3, image: './logo.jpg', name: 'Default user 3' }]
-		}
-	},
-	methods: {
-		handleItemUpdated() {
-			// console.log('block updated')
-		},
-		handleItemClicked() {
-			// console.log('block clicked')
-		},
-		handleItemCreated() {
-			// console.log('item created')
-		}
-	}
+    name: 'app',
+    components: { Tour },
+    data: () => ({
+        steps: [
+            {
+                preview: '/example-1.png',
+                title: 'Step 1',
+                description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. '
+            },
+            {
+                preview: '/example-1.png',
+                title: 'Step 2',
+                description: 'Congratz, I am the second step in this 2 step tuturial. If you reached me that means you have reached the end.'
+            },
+        ],
+        text: {
+            next_cta: 'Next',
+            prev_cta: 'Previous'
+        },
+        theme: {
+            color: '#009de0',
+            radius: '2px'
+        }
+    })
 }
 </script>

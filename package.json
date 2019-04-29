@@ -1,13 +1,13 @@
 {
-	"name": "@salamander.be/vue-kanban-board",
-	"description": "A VueJs kanban board.",
+	"name": "@salamander.be/vue-tour",
+	"description": "A VueJs tour component.",
 	"author": "Frederiek <frederiek@salamander.be>",
 	"license": "MIT",
-	"version": "0.1.7",
-	"main": "./dist/vue-kanban-board.common.js",
+	"version": "0.0.1",
+	"main": "./dist/vue-tour.common.js",
 	"keywords": [
 		"vue",
-		"kanban"
+		"tour"
 	],
 	"scripts": {
 		"serve": "vue-cli-service serve",
@@ -25,12 +25,11 @@
 		"@vue/cli-service": "^3.0.4",
 		"vue-template-compiler": "^2.5.17",
 		"node-sass": "^4.9.0",
-		"sass-loader": "^7.0.1",
-		"dragula": "^3.7.2"
+		"sass-loader": "^7.0.1"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/salamanderbe/vue-kanban-board"
+		"url": "https://github.com/salamanderbe/vue-tour"
 	},
 	"eslintConfig": {
 		"root": true,
