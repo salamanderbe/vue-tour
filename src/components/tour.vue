@@ -22,8 +22,8 @@
     .scale {
         position: absolute;
         top: 30px;
-        width: 12px;
-        height: 12px;
+        width: 15px;
+        height: 15px;
         cursor: pointer;
         transition: 0.2s opacity;
         &:hover {
@@ -62,10 +62,10 @@
         }
     }
     .content {
-        padding: 30px;
+        padding: 32px 40px 40px 40px;
         .title {
             font-family: inherit;
-            font-size: 30px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 40px;
             margin-bottom: 6px;
@@ -174,7 +174,7 @@
                     </div>
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
-                        <p class="description">{{ step.description }}</p>
+                        <p class="description">{{ getDesc(step.description) }}</p>
                         <div class="footer">
                             <div class="footer-dots">
                                 <div v-for="dot in stepCount" :key="dot" class="dot" :style="{ background: ((dot - 1 === currentStep) ? theme.color : '#e6eaee') }"></div>
@@ -275,6 +275,12 @@ export default {
             this.scaled = !this.scaled
             document.querySelector(this.blurEl).classList.toggle('tour-blurred')
         },
+
+        getDesc(text) {
+            let trim_count = 200
+
+            return (text.length > trim_count && !this.scaled) ? text.substring(0, trim_count) + '...' : text
+        }
     },
 
     computed: {
