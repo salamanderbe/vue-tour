@@ -146,7 +146,9 @@ $grid-size: 1100px;
                 <div class="dummy dummy-text"></div>
             </div>
         </div>
-        <tour :steps="steps" :text="text" :theme="theme" :debug="true"></tour>
+        <tour :steps="steps" :text="text" :theme="theme" :debug="true">
+            <template slot="step-1"> <a href="#">Custom slot 1</a> </template>
+        </tour>
     </div>
 </template>
 
@@ -161,7 +163,7 @@ export default {
             {
                 preview: './example-1.png',
                 title: 'Step 1',
-                description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me.',
+                description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me.',
             },
             {
                 preview: './Gantt-example.gif',

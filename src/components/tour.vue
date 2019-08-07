@@ -175,6 +175,7 @@
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
                         <p class="description" v-html="getDesc(step.description)"></p>
+                        <slot v-if="scaled" :name="`step-${key + 1}`"></slot>
                         <div class="footer">
                             <div class="footer-dots">
                                 <div v-for="dot in stepCount" :key="dot" class="dot" :style="{ background: ((dot - 1 === currentStep) ? theme.color : '#e6eaee') }"></div>
@@ -282,7 +283,7 @@ export default {
         },
 
         getDesc(text) {
-            let trim_count = 200
+            let trim_count = 150
 
             return (text.length > trim_count && !this.scaled) ? text.replace(/(<([^>]+)>)/ig, "").substring(0, trim_count) + '...' : text
         }
