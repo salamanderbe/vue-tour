@@ -274,6 +274,7 @@ export default {
 
         close() {
             this.open = false
+            document.querySelector(this.blurEl).classList.toggle('tour-blurred')
             localStorage.setItem('vue-tour-viewed', true);
         },
 
