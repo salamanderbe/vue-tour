@@ -40,6 +40,8 @@ export default {
         preview: '/example-1.png',
         title: 'Step 1',
         description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. '
+        next_cta: 'Next custom',
+        prev_cta: 'Previous custom',
       },
       {
         preview: '/example-1.png',
@@ -50,7 +52,7 @@ export default {
     text: {
       next_cta: 'Next',
       prev_cta: 'Previous',
-            restart_cta: 'Restart'
+      restart_cta: 'Restart'
     },
     theme: {
       color: '#009de0',
@@ -73,8 +75,11 @@ steps: [
     preview: '/example-1.png', // The preview image shown for each step
     title: 'Step 1', // The title of the step
     description: 'Description for step 1' // The description of the step
+    next_cta: 'Next custom', // Override the default next text
+    prev_cta: 'Previous custom', // Override the default prev text
   }
 ]
 theme: { color: '#color', radius: 'px' } // the theme use while rendering the component
 text: { next_cta: '', prev_cta: '', restart_cta: '' } // The fixed texts used in the component
+storage: 'custom-storage-key' // Set a custom localstorage key
 ```

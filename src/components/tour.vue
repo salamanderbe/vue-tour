@@ -154,7 +154,7 @@
                             <g>
                                 <g>
                                     <g>
-                                        <path fill="#255fff" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
+                                        <path fill="#333" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
                                     </g>
                                 </g>
                             </g>
@@ -174,13 +174,13 @@
                     </div>
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
-                        <p class="description">{{ getDesc(step.description) }}</p>
+                        <p class="description" v-html="getDesc(step.description)"></p>
                         <div class="footer">
                             <div class="footer-dots">
                                 <div v-for="dot in stepCount" :key="dot" class="dot" :style="{ background: ((dot - 1 === currentStep) ? theme.color : '#e6eaee') }"></div>
                             </div>
-                            <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ text.prev_cta }}</div>
-                            <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? text.next_cta : text.restart_cta }}</div>
+                            <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ step.prev_cta ? step.prev_cta : text.prev_cta }}</div>
+                            <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
                     </div>
                 </div>
@@ -199,12 +199,12 @@ export default {
                     {
                         preview: '/example-1.png',
                         title: 'Step 1',
-                        description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. '
+                        description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me.',
                     },
                     {
                         preview: '/example-1.png',
                         title: 'Step 2',
-                        description: 'Congratz, I am the second step in this 2 step tuturial. If you reached me that means you have reached the end.'
+                        description: 'Congratz, I am the second step in this 2 step tuturial. If you reached me that means you have reached the end.',
                     },
                 ]
             }
@@ -240,6 +240,11 @@ export default {
         debug: {
             type: Boolean,
             default: false
+        },
+
+        storage: {
+            type: String,
+            default: 'vue-tour-viewed'
         }
     },
 
@@ -250,7 +255,7 @@ export default {
     }),
 
     mounted() {
-        const watched = localStorage.getItem('vue-tour-viewed');
+        const watched = localStorage.getItem(this.storage);
 
         if (!this.debug && watched !== null && !!watched === true) this.open = false
     },
@@ -279,7 +284,7 @@ export default {
         getDesc(text) {
             let trim_count = 200
 
-            return (text.length > trim_count && !this.scaled) ? text.substring(0, trim_count) + '...' : text
+            return (text.length > trim_count && !this.scaled) ? text.replace(/(<([^>]+)>)/ig, "").substring(0, trim_count) + '...' : text
         }
     },
 
