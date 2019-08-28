@@ -113,11 +113,14 @@ $grid-size: 1100px;
     margin-top: auto;
     margin-bottom: 7.5px;
     .dummy-text {
-        width: 400px;
+        width: 200px;
         margin-left: auto;
         margin-right: auto;
         height: 10px;
         padding: 0px;
+        @media screen and(min-width: 768px) {
+            width: 400px;
+        }
     }
 }
 </style>
@@ -146,7 +149,7 @@ $grid-size: 1100px;
                 <div class="dummy dummy-text"></div>
             </div>
         </div>
-        <tour :steps="steps" :text="text" :theme="theme" :debug="true">
+        <tour :steps="steps" :text="text" :theme="theme" :debug="true" :start-large="true">
             <template slot="step-1"> <a href="#">Custom slot 1</a> </template>
         </tour>
     </div>

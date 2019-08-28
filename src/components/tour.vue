@@ -1,22 +1,32 @@
 <style lang="scss" scoped>
 .tour-preview {
     position: absolute;
-    right: 30px;
-    bottom: 30px;
-    width: 432px;
-    height: 492px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
     background: #fff;
     box-shadow: -6px 0 12px rgba(0, 0, 0, 0.06);
     z-index: 1001;
     transition: all 0.2s;
+    @media screen and(min-width: 768px) {
+        width: 432px;
+        height: 492px;
+        right: 30px;
+        bottom: 30px;
+    }
     &.is-scaled {
         height: 80vh;
-        width: 650px;
+        height: calc(var(--vh, 1vh) * 80);
+        width: 100%;
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
         margin: auto;
+        @media screen and(min-width: 768px) {
+            width: 650px;
+        }
     }
     .close,
     .scale {
@@ -36,8 +46,11 @@
     }
     .scale {
         right: 56px;
+        display: none;
+        @media screen and(min-width: 768px) {
+            display: block;
+        }
         &.is-scaled {
-            right: 30px;
             path: {
                 fill: #333;
             }
@@ -161,7 +174,7 @@
                         </g>
                     </svg>
 
-                    <svg v-if="!scaled" @click="close" class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+                    <svg @click="close" class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                         <g>
                             <g>
                                 <path fill="#333" d="M6-1.2c.374 0 .678.303.678.678v5.844h5.844a.678.678 0 1 1 0 1.356H6.678v5.844a.678.678 0 1 1-1.356 0V6.678H-.522a.678.678 0 1 1 0-1.356h5.844V-.522c0-.375.304-.678.678-.678z" />
@@ -246,6 +259,11 @@ export default {
         storage: {
             type: String,
             default: 'vue-tour-viewed'
+        },
+
+        startLarge: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -259,6 +277,21 @@ export default {
         const watched = localStorage.getItem(this.storage);
 
         if (!this.debug && watched !== null && !!watched === true) this.open = false
+
+        if (this.startLarge && !watched) {
+            this.scaled = true
+            document.querySelector(this.blurEl).classList.add('tour-blurred')
+        } else {
+            document.querySelector(this.blurEl).classList.remove('tour-blurred')
+        }
+
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        window.addEventListener('resize', () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        });
     },
 
     methods: {
@@ -280,7 +313,11 @@ export default {
 
         scale() {
             this.scaled = !this.scaled
-            document.querySelector(this.blurEl).classList.toggle('tour-blurred')
+            if (this.scaled)
+                document.querySelector(this.blurEl).classList.add('tour-blurred')
+            else
+                document.querySelector(this.blurEl).classList.remove('tour-blurred')
+
         },
 
         getDesc(text) {
