@@ -196,6 +196,10 @@
                             <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ step.prev_cta ? step.prev_cta : text.prev_cta }}</div>
                             <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
+                         <!-- add devide -->
+                        <div class="related-topics" v-if="scaled">
+                            <slot name="topics"></slot>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -250,7 +254,6 @@ export default {
             type: String,
             default: '.can-tour-blur'
         },
-
         debug: {
             type: Boolean,
             default: false
