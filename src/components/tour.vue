@@ -322,7 +322,7 @@ export default {
 
         close() {
             this.open = false
-            document.addEventListener("DOMContentLoaded", async function (event) {
+            document.addEventListener("DOMContentLoaded", async function () {
                 document.querySelector(this.blurEl).classList.remove('tour-blurred')
             });
             localStorage.setItem('vue-tour-viewed', true);
@@ -331,7 +331,7 @@ export default {
 
         scale() {
             this.scaled = !this.scaled
-            document.addEventListener("DOMContentLoaded", async function (event) {
+            document.addEventListener("DOMContentLoaded", async function () {
                 if (this.scaled)
                     document.querySelector(this.blurEl).classList.add('tour-blurred')
                 else
