@@ -274,23 +274,25 @@ export default {
     }),
 
     mounted() {
-        const watched = localStorage.getItem(this.storage);
+        document.addEventListener("DOMContentLoaded", async function (event) {
+            const watched = localStorage.getItem(this.storage);
 
-        if (!this.debug && watched !== null && !!watched === true) this.open = false
+            if (!this.debug && watched !== null && !!watched === true) this.open = false
 
-        if (this.startLarge && !watched) {
-            this.scaled = true
-            document.querySelector(this.blurEl).classList.add('tour-blurred')
-        } else {
-            document.querySelector(this.blurEl).classList.remove('tour-blurred')
-        }
+            if (this.startLarge && !watched) {
+                this.scaled = true
+                document.querySelector(this.blurEl).classList.add('tour-blurred')
+            } else {
+                document.querySelector(this.blurEl).classList.remove('tour-blurred')
+            }
 
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-        window.addEventListener('resize', () => {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+            window.addEventListener('resize', () => {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            });
         });
     },
 
@@ -307,17 +309,20 @@ export default {
 
         close() {
             this.open = false
-            document.querySelector(this.blurEl).classList.remove('tour-blurred')
+            document.addEventListener("DOMContentLoaded", async function (event) {
+                document.querySelector(this.blurEl).classList.remove('tour-blurred')
+            });
             localStorage.setItem('vue-tour-viewed', true);
         },
 
         scale() {
             this.scaled = !this.scaled
-            if (this.scaled)
-                document.querySelector(this.blurEl).classList.add('tour-blurred')
-            else
-                document.querySelector(this.blurEl).classList.remove('tour-blurred')
-
+            document.addEventListener("DOMContentLoaded", async function (event) {
+                if (this.scaled)
+                    document.querySelector(this.blurEl).classList.add('tour-blurred')
+                else
+                    document.querySelector(this.blurEl).classList.remove('tour-blurred')
+            });
         },
 
         getDesc(text) {
