@@ -298,13 +298,23 @@ export default {
 
     methods: {
         next() {
-            if (this.currentStep < this.steps.length - 1) this.currentStep++
-            else this.currentStep = 0
+            if (this.currentStep < this.steps.length - 1) {
+                this.currentStep++
+            } 
+            else {
+                this.currentStep = 0
+            }
+            this.$emit('next',this.currentStep)
         },
 
         prev() {
-            if (this.currentStep > 0) this.currentStep--
-            else this.currentStep = this.steps.length - 1
+            if (this.currentStep > 0) {
+                this.currentStep--
+            }
+            else {
+                this.currentStep = this.steps.length - 1
+            }
+            this.$emit('prev',this.currentStep)
         },
 
         close() {
