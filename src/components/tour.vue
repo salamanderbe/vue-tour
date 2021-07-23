@@ -323,6 +323,7 @@ export default {
                 document.querySelector(this.blurEl).classList.remove('tour-blurred')
             });
             localStorage.setItem('vue-tour-viewed', true);
+             this.$emit('close')
         },
 
         scale() {
