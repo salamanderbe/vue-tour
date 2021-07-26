@@ -197,7 +197,7 @@
                             <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
                          <!-- add devide -->
-                        <div class="related-topics" v-if="scaled">
+                        <div class="related-topics" >
                             <slot name="topics"></slot>
                         </div>
                     </div>
