@@ -196,6 +196,10 @@
                             <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ step.prev_cta ? step.prev_cta : text.prev_cta }}</div>
                             <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
+                         <!-- add devide -->
+                        <div class="related-topics" >
+                            <slot name="topics"></slot>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -250,7 +254,6 @@ export default {
             type: String,
             default: '.can-tour-blur'
         },
-
         debug: {
             type: Boolean,
             default: false
@@ -306,26 +309,37 @@ export default {
 
     methods: {
         next() {
-            if (this.currentStep < this.steps.length - 1) this.currentStep++
-            else this.currentStep = 0
+            if (this.currentStep < this.steps.length - 1) {
+                this.currentStep++
+            } 
+            else {
+                this.currentStep = 0
+            }
+            this.$emit('next',this.currentStep)
         },
 
         prev() {
-            if (this.currentStep > 0) this.currentStep--
-            else this.currentStep = this.steps.length - 1
+            if (this.currentStep > 0) {
+                this.currentStep--
+            }
+            else {
+                this.currentStep = this.steps.length - 1
+            }
+            this.$emit('prev',this.currentStep)
         },
 
         close() {
             this.open = false
-            document.addEventListener("DOMContentLoaded", async function (event) {
+            document.addEventListener("DOMContentLoaded", async function () {
                 document.querySelector(this.blurEl).classList.remove('tour-blurred')
             });
             localStorage.setItem('vue-tour-viewed', true);
+            this.$emit('close')
         },
 
         scale() {
             this.scaled = !this.scaled
-            document.addEventListener("DOMContentLoaded", async function (event) {
+            document.addEventListener("DOMContentLoaded", async function () {
                 if (this.scaled)
                     document.querySelector(this.blurEl).classList.add('tour-blurred')
                 else
