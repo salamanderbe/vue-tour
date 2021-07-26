@@ -167,7 +167,7 @@
                             <g>
                                 <g>
                                     <g>
-                                        <path fill="#333" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
+                                        <path :fill="fill" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
                                     </g>
                                 </g>
                             </g>
@@ -177,7 +177,7 @@
                     <svg @click="close" class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                         <g>
                             <g>
-                                <path fill="#333" d="M6-1.2c.374 0 .678.303.678.678v5.844h5.844a.678.678 0 1 1 0 1.356H6.678v5.844a.678.678 0 1 1-1.356 0V6.678H-.522a.678.678 0 1 1 0-1.356h5.844V-.522c0-.375.304-.678.678-.678z" />
+                                <path :fill="fill" d="M6-1.2c.374 0 .678.303.678.678v5.844h5.844a.678.678 0 1 1 0 1.356H6.678v5.844a.678.678 0 1 1-1.356 0V6.678H-.522a.678.678 0 1 1 0-1.356h5.844V-.522c0-.375.304-.678.678-.678z" />
                             </g>
                         </g>
                     </svg>
@@ -264,6 +264,12 @@ export default {
         startLarge: {
             type: Boolean,
             default: false
+        },
+
+        fill: {
+            required: false,
+            type: String,
+            default: '#FFF'
         }
     },
 
@@ -283,7 +289,9 @@ export default {
                 this.scaled = true
                 document.querySelector(this.blurEl).classList.add('tour-blurred')
             } else {
-                document.querySelector(this.blurEl).classList.remove('tour-blurred')
+                document.addEventListener("DOMContentLoaded", async function (event) {
+                    document.querySelector(this.blurEl).classList.remove('tour-blurred')
+                });
             }
 
             let vh = window.innerHeight * 0.01;
