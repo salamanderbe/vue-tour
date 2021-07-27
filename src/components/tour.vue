@@ -183,8 +183,8 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <img v-if="showImg" :src="getImage(step.preview)" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <div v-if="!showImg" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <img v-show="showImg" :src="getImage(step.preview)" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <div v-show="!showImg" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
                             <slot name="loading-preview"></slot>
                         </div>
                     </div>
@@ -363,6 +363,7 @@ export default {
                 this.imgUrl = imgPreview;
                 this.showImg = true;
             }
+            return imgPreview;
         },
     },
 
