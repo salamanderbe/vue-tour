@@ -288,7 +288,7 @@ export default {
     }),
 
     mounted() {
-        document.addEventListener("DOMContentLoaded", async function (event) {
+        document.addEventListener("DOMContentLoaded", async function () {
             const watched = localStorage.getItem(this.storage);
 
             if (!this.debug && watched !== null && !!watched === true) this.open = false
@@ -297,7 +297,7 @@ export default {
                 this.scaled = true
                 document.querySelector(this.blurEl).classList.add('tour-blurred')
             } else {
-                document.addEventListener("DOMContentLoaded", async function (event) {
+                document.addEventListener("DOMContentLoaded", async function () {
                     document.querySelector(this.blurEl).classList.remove('tour-blurred')
                 });
             }
@@ -311,7 +311,7 @@ export default {
             });
             let img = new Image();
             img.onload = () => {
-                this.imgUrl = step.preview;
+                this.imgUrl = this.step.preview;
                 this.showImg = true;
             }
         });
