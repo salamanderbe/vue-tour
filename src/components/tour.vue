@@ -183,7 +183,10 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <img :src="step.preview" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <img v-if="showImg" :src="imgUrl" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <div v-if="!showImg" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                            <slot name="loading-preview"></slot>
+                        </div>
                     </div>
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
@@ -196,7 +199,7 @@
                             <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ step.prev_cta ? step.prev_cta : text.prev_cta }}</div>
                             <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
-                         <!-- add devide -->
+                        <!-- add devide -->
                         <div class="related-topics" >
                             <slot name="topics"></slot>
                         </div>
@@ -279,7 +282,9 @@ export default {
     data: () => ({
         currentStep: 0,
         open: true,
-        scaled: false
+        scaled: false,
+        imgUrl: '',
+        showImg: false,
     }),
 
     mounted() {
@@ -304,6 +309,11 @@ export default {
                 let vh = window.innerHeight * 0.01;
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
             });
+            let img = new Image();
+            img.onload = () => {
+                this.imgUrl = step.preview;
+                this.showImg = true;
+            }
         });
     },
 
