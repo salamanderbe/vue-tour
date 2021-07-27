@@ -183,7 +183,7 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <img v-if="showImg" :src="imgUrl" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <img v-if="showImg" :src="getImage(step.preview)" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
                         <div v-if="!showImg" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
                             <slot name="loading-preview"></slot>
                         </div>
@@ -309,11 +309,6 @@ export default {
                 let vh = window.innerHeight * 0.01;
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
             });
-            let img = new Image();
-            img.onload = () => {
-                this.imgUrl = this.step.preview;
-                this.showImg = true;
-            }
         });
     },
 
@@ -361,7 +356,14 @@ export default {
             let trim_count = 150
 
             return (text.length > trim_count && !this.scaled) ? text.replace(/(<([^>]+)>)/ig, "").substring(0, trim_count) + '...' : text
-        }
+        },
+        getImage(imgPreview) {
+            let img = new Image();
+            img.onload = () => {
+                this.imgUrl = imgPreview;
+                this.showImg = true;
+            }
+        },
     },
 
     computed: {
