@@ -183,17 +183,11 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <tour-image :step="step" :theme="theme" >
+                        <tour-image :step="step" :theme="theme">
                             <template slot="image-preview">
-                                test wqjewqjew
                                 <slot name="loading-preview"></slot>
                             </template>
                         </tour-image>
-                        <!-- <img v-show="step.isShow" :src="getImage(step.preview)" :ref="`imageTour${key}`" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <div v-show="!step.isShow" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                            test wqjewqjew
-                            <slot name="loading-preview"></slot>
-                        </div> -->
                     </div>
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
