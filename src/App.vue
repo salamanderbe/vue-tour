@@ -169,7 +169,7 @@ export default {
                 description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me.',
             },
             {
-                preview: './Gantt-example.gif',
+                preview: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg',
                 title: 'Step 2',
                 description: 'Hello, I\'m the second step I look like the first step but you can go both back and forth.',
                 next_cta: 'Next',

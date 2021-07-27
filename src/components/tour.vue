@@ -183,10 +183,17 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <img v-show="showImg" :src="getImage(step.preview)" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <div v-show="!showImg" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <tour-image :step="step" :theme="theme" >
+                            <template slot="image-preview">
+                                test wqjewqjew
+                                <slot name="loading-preview"></slot>
+                            </template>
+                        </tour-image>
+                        <!-- <img v-show="step.isShow" :src="getImage(step.preview)" :ref="`imageTour${key}`" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <div v-show="!step.isShow" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                            test wqjewqjew
                             <slot name="loading-preview"></slot>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
@@ -211,7 +218,11 @@
 </template>
 
 <script>
+import TourImage from './TourImage.vue'
 export default {
+    components: {
+        TourImage
+    },
     props: {
         steps: {
             type: Array,
@@ -310,6 +321,10 @@ export default {
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
             });
         });
+
+        
+        
+        // return imgPreview;
     },
 
     methods: {
