@@ -30,7 +30,7 @@ export default {
     mounted() {
         const img = new Image();
         img.onload = () => {
-            this.imageUrl = this.step.preview;
+            this.imageUrl = img.src;
             this.showImage = true;
         }
         img.src = this.step.preview
