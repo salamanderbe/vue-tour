@@ -167,7 +167,7 @@
                             <g>
                                 <g>
                                     <g>
-                                        <path fill="#333" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
+                                        <path :fill="fill" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
                                     </g>
                                 </g>
                             </g>
@@ -177,13 +177,16 @@
                     <svg @click="close" class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                         <g>
                             <g>
-                                <path fill="#333" d="M6-1.2c.374 0 .678.303.678.678v5.844h5.844a.678.678 0 1 1 0 1.356H6.678v5.844a.678.678 0 1 1-1.356 0V6.678H-.522a.678.678 0 1 1 0-1.356h5.844V-.522c0-.375.304-.678.678-.678z" />
+                                <path :fill="fill" d="M6-1.2c.374 0 .678.303.678.678v5.844h5.844a.678.678 0 1 1 0 1.356H6.678v5.844a.678.678 0 1 1-1.356 0V6.678H-.522a.678.678 0 1 1 0-1.356h5.844V-.522c0-.375.304-.678.678-.678z" />
                             </g>
                         </g>
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <img :ref="`imageTour${key}`" :src="step.preview" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <img v-show="showImg" :src="getImage(step.preview)" :ref="`imageTour${key}`" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <div v-show="!showImg" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                            <slot name="loading-preview"></slot>
+                        </div>
                     </div>
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
@@ -196,7 +199,7 @@
                             <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ step.prev_cta ? step.prev_cta : text.prev_cta }}</div>
                             <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
-                         <!-- add devide -->
+                        <!-- add devide -->
                         <div class="related-topics" >
                             <slot name="topics"></slot>
                         </div>
@@ -267,13 +270,21 @@ export default {
         startLarge: {
             type: Boolean,
             default: false
+        },
+
+        fill: {
+            required: false,
+            type: String,
+            default: '#FFF'
         }
     },
 
     data: () => ({
         currentStep: 0,
         open: true,
-        scaled: false
+        scaled: false,
+        imgUrl: '',
+        showImg: false,
     }),
 
     mounted() {
@@ -286,7 +297,9 @@ export default {
                 this.scaled = true
                 document.querySelector(this.blurEl).classList.add('tour-blurred')
             } else {
-                document.querySelector(this.blurEl).classList.remove('tour-blurred')
+                document.addEventListener("DOMContentLoaded", async function () {
+                    document.querySelector(this.blurEl).classList.remove('tour-blurred')
+                });
             }
 
             let vh = window.innerHeight * 0.01;
@@ -354,7 +367,15 @@ export default {
             let trim_count = 150
 
             return (text.length > trim_count && !this.scaled) ? text.replace(/(<([^>]+)>)/ig, "").substring(0, trim_count) + '...' : text
-        }
+        },
+        getImage(imgPreview) {
+            let img = new Image();
+            img.onload = () => {
+                this.imgUrl = imgPreview;
+                this.showImg = true;
+            }
+            return imgPreview;
+        },
     },
 
     computed: {

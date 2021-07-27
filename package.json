@@ -3,7 +3,7 @@
   "description": "A VueJs tour component.",
   "author": "rizkiailham11@gmail.com",
   "license": "MIT",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "main": "./dist/vue-tour.common.js",
   "keywords": [
     "vue",
