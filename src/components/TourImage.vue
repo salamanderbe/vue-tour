@@ -1,7 +1,8 @@
 <template>
     <div>
-        <img v-show="showImage" :src="step.preview" 
-        :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+        <div v-show="showImage">
+            <img :src="step.preview" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+        </div>
         <div v-show="!showImage" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
             <slot name="image-preview"></slot>
         </div>
