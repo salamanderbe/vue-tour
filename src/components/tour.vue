@@ -183,7 +183,7 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <img :src="step.preview" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+                        <img :ref="`imageTour${key}`" :src="step.preview" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
                     </div>
                     <div class="content">
                         <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
@@ -277,7 +277,7 @@ export default {
     }),
 
     mounted() {
-        document.addEventListener("DOMContentLoaded", async function (event) {
+        document.addEventListener("DOMContentLoaded", async function () {
             const watched = localStorage.getItem(this.storage);
 
             if (!this.debug && watched !== null && !!watched === true) this.open = false
@@ -297,6 +297,17 @@ export default {
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
             });
         });
+
+        this.steps.forEach((step,index) => {
+            let img = new Image();
+            const refItem = this.$refs[`imageTour${index}`]
+            img.onload = () => {
+                this.showImg = true;
+                if(refItem) refItem.src = step.preview;
+            }
+        });
+        
+        // return imgPreview;
     },
 
     methods: {
