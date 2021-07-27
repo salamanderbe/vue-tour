@@ -288,8 +288,6 @@ export default {
         currentStep: 0,
         open: true,
         scaled: false,
-        imgUrl: '',
-        showImg: false,
     }),
 
     mounted() {
@@ -365,14 +363,6 @@ export default {
             let trim_count = 150
 
             return (text.length > trim_count && !this.scaled) ? text.replace(/(<([^>]+)>)/ig, "").substring(0, trim_count) + '...' : text
-        },
-        getImage(imgPreview) {
-            let img = new Image();
-            img.onload = () => {
-                this.imgUrl = imgPreview;
-                this.showImg = true;
-            }
-            return imgPreview;
         },
     },
 
