@@ -27,6 +27,9 @@ export default {
         versioningCacheImage: {
             type: Number,
             default: 1
+        },
+        steps: {
+            type: Array,
         }
 	},
 	components: {
@@ -65,7 +68,9 @@ export default {
 
 	},
 	watch: {
-
+        steps() {
+            this.asyncgetMediaSource();
+        }
 	},
 };
 </script>
