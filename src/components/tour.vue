@@ -289,6 +289,12 @@ export default {
         versioningCacheImage: {
             type: Number,
             default: 1
+        },
+
+        isCacheEnabled: {
+            required: false,
+            type: Boolean,
+            default: false
         }
     },
 
@@ -389,21 +395,24 @@ export default {
             }
 		},
         cacheFile(previewKey, itemPreviewPath) {
-			try {
-				getVideoBlob(itemPreviewPath).then((blob) => {
-					// Check videoBlob
-					// Set key and blob
-					localforage.setItem(previewKey, blob, (err, value) => {
-						if (!err && value) {
-							// handle success cache here
-						}
-					});
-				}).catch(() => {
-					// error handling logic                    
-				});
-			} catch (e) {
-				// catch some error here
-			}
+            if (this.isCacheEnabled) {
+                try {
+                    getVideoBlob(itemPreviewPath).then((blob) => {
+                        // Check videoBlob
+                        // Set key and blob
+                        localforage.setItem(previewKey, blob, (err, value) => {
+                            if (!err && value) {
+                                // handle success cache here
+                            }
+                        });
+                    }).catch(() => {
+                        // error handling logic                    
+                    });
+                } catch (e) {
+                    // catch some error here
+                }
+            }
+            return;
 		},
     },
 
