@@ -164,13 +164,13 @@ export default {
     data: () => ({
         steps: [
             {
-			preview: 'https://drive.google.com/uc?export=view&id=1Qj9W6owcKdh7zwAbdSKJp9X1L2uViKUT',
+			preview: 'https://grafias.s3.eu-central-1.amazonaws.com/Tour/Quickstart/Onboarding_Quick-Start.gif',
 			title: 'Quick Start Rundown',
 			description: 'Corpus callosum the carbon in our apple pies rich in heavy atoms venture consciousness decipherment.',
 			index: 1,
             },
             {
-                preview: 'https://drive.google.com/uc?export=view&id=1eGtC67uzwGa83KK-9oyjxFPNu9HRnwMr',
+                preview: 'https://grafias.s3.eu-central-1.amazonaws.com/Tour/Quickstart/Area+of+Interest.gif',
                 title: 'Area of Interest',
                 description: 'Suspendisse dictum odio vitae nisi commodo sollicitudin. Nulla a ante porttitor, suscipit leo quis, rutrum lectus.',
                 index: 1,

@@ -48,12 +48,11 @@ export default {
             this.showImage = true;
         }
         img.src = this.step.preview
-		this.asyncgetMediaSource();
     },
 	
 	methods: {
 		asyncgetMediaSource() {
-            const itemKey = `preview_tour_${this.index}_${this.step.index}_${this.versioningCacheImage}`;
+            const itemKey = `preview_tour_${this.step.index}_${this.index}_${this.versioningCacheImage}`;
 			this.mediaSource = this.step && this.step.preview ? this.step.preview : '';
 			localforage.getItem(itemKey).then((value) => {
 				if (value) {
@@ -67,6 +66,15 @@ export default {
 	computed: {
 
 	},
+    created() {
+        const itemKey = `preview_tour_${this.step.index}_${this.index}_${this.versioningCacheImage}`;
+        localforage.getItem(itemKey).then((value) => {
+            if (value) {
+                this.showImage = true;
+            }
+        });
+		this.asyncgetMediaSource();
+    },
 	watch: {
         steps() {
             this.asyncgetMediaSource();
