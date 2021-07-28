@@ -427,7 +427,6 @@ export default {
 	watch: {
         steps() {
             this.currentStep = 0;
-            this.filteredSteps = this.steps;
         }
 	},
 }
