@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-show="showImage">
-            <img :src="step.preview" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
+            <img :src="mediaSource" :alt="step.title" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
         </div>
         <div v-show="!showImage" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
             <slot name="image-preview"></slot>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import localforage from 'localforage';
+
 export default {
 	name: 'TourImage',
 	props: {
@@ -18,6 +20,13 @@ export default {
 		},
         theme:{ 
             type: Object,
+        },
+        index: {
+            type: Number,
+        },
+        versioningCacheImage: {
+            type: Number,
+            default: 1
         }
 	},
 	components: {
@@ -26,6 +35,7 @@ export default {
 		return {
             imageUrl:'',
             showImage:false,
+			mediaSource: '',
 		};
 	},
     mounted() {
@@ -35,16 +45,27 @@ export default {
             this.showImage = true;
         }
         img.src = this.step.preview
+		this.asyncgetMediaSource();
     },
 	
 	methods: {
-		
+		asyncgetMediaSource() {
+            const itemKey = `preview_tour_${this.index}_${this.step.index}_${this.versioningCacheImage}`;
+			this.mediaSource = this.step && this.step.preview ? this.step.preview : '';
+			localforage.getItem(itemKey).then((value) => {
+				if (value) {
+					this.mediaSource = URL.createObjectURL(value);
+					return (this.mediaSource);
+				}
+				return (this.mediaSource);
+			});
+		},
 	},
 	computed: {
-		
+
 	},
 	watch: {
-		
+
 	},
 };
 </script>

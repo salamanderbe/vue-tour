@@ -167,18 +167,21 @@ export default {
                 preview: './example-1.png',
                 title: 'Step 1',
                 description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me.',
+                index: 1,
             },
             {
                 preview: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg',
                 title: 'Step 2',
                 description: 'Hello, I\'m the second step I look like the first step but you can go both back and forth.',
                 next_cta: 'Next',
-                prev_cta: 'Custom prev'
+                prev_cta: 'Custom prev',
+                index: 1,
             },
             {
                 preview: './Kanban-example.gif',
                 title: 'Step 3',
                 description: 'Congratz, I am the second step in this 3 step tuturial. If you reached me that means you have reached the end.',
+                index: 1,
             },
         ],
         text: {

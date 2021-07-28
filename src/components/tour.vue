@@ -183,7 +183,7 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <tour-image :step="step" :theme="theme">
+                        <tour-image :index="key" :steps="steps" :step="step" :theme="theme">
                             <template slot="image-preview">
                                 <slot name="loading-preview"></slot>
                             </template>
@@ -213,6 +213,9 @@
 
 <script>
 import TourImage from './TourImage.vue'
+import localforage from 'localforage';
+import { getVideoBlob } from './helper';
+
 export default {
     components: {
         TourImage
@@ -281,6 +284,11 @@ export default {
             required: false,
             type: String,
             default: '#FFF'
+        },
+
+        versioningCacheImage: {
+            type: Number,
+            default: 1
         }
     },
 
@@ -313,10 +321,7 @@ export default {
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
             });
         });
-
-        
-        
-        // return imgPreview;
+        this.startCache();
     },
 
     methods: {
@@ -364,6 +369,42 @@ export default {
 
             return (text.length > trim_count && !this.scaled) ? text.replace(/(<([^>]+)>)/ig, "").substring(0, trim_count) + '...' : text
         },
+        
+        startCache() {
+            if (this.steps && this.steps.length > 0) {
+                for (let index = 0; index < this.steps.length; index++) {
+                    const item = this.steps[index];
+                    const itemKey = `preview_tour_${item.index}_${index}_${this.versioningCacheImage}`;
+                    localforage.getItem(itemKey, (err, value) => {
+                        if (value) {
+                            // logic when no value
+                        } else {
+                            const itemPreviewTour = item && item.preview ? item.preview : item.preview;
+                            if (itemPreviewTour) {
+                                this.cacheFile(itemKey, itemPreviewTour);
+                            }
+                        }
+                    });
+                }
+            }
+		},
+        cacheFile(previewKey, itemPreviewPath) {
+			try {
+				getVideoBlob(itemPreviewPath).then((blob) => {
+					// Check videoBlob
+					// Set key and blob
+					localforage.setItem(previewKey, blob, (err, value) => {
+						if (!err && value) {
+							// handle success cache here
+						}
+					});
+				}).catch(() => {
+					// error handling logic                    
+				});
+			} catch (e) {
+				// catch some error here
+			}
+		},
     },
 
     computed: {
