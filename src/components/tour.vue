@@ -159,7 +159,7 @@
     <div v-if="open">
         <div v-if="scaled" @click="scale" class="tour-popover"></div>
         <div class="tour-preview" :style="{ 'border-radius': theme.radius }" :class="{ 'is-scaled' : scaled}">
-            <template v-for="(step, key) in steps">
+            <template v-for="(step, key) in filteredSteps">
                 <div v-if="currentStep === key" class="step" :key="key">
 
                     <svg @click="scale" class="scale" :class="{ 'is-scaled' : scaled }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
@@ -183,7 +183,7 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <tour-image :index="key" :steps="steps" :step="step" :theme="theme">
+                        <tour-image :index="key" :steps="filteredSteps" :step="step" :theme="theme">
                             <template slot="image-preview">
                                 <slot name="loading-preview"></slot>
                             </template>
@@ -198,7 +198,7 @@
                                 <div v-for="dot in stepCount" :key="dot" class="dot" :style="{ background: ((dot - 1 === currentStep) ? theme.color : '#e6eaee') }"></div>
                             </div>
                             <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ step.prev_cta ? step.prev_cta : text.prev_cta }}</div>
-                            <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
+                            <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== filteredSteps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
                         <!-- add devide -->
                         <div class="related-topics" >
@@ -410,7 +410,16 @@ export default {
     computed: {
         stepCount() {
             return this.steps.length
+        },
+        filteredSteps() {
+            return this.steps;
+        },
+    },
+	watch: {
+        steps() {
+            this.currentStep = 0;
+            this.filteredSteps = this.steps;
         }
-    }
+	},
 }
 </script>

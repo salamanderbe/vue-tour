@@ -164,6 +164,18 @@ export default {
     data: () => ({
         steps: [
             {
+			preview: 'https://drive.google.com/uc?export=view&id=1Qj9W6owcKdh7zwAbdSKJp9X1L2uViKUT',
+			title: 'Quick Start Rundown',
+			description: 'Corpus callosum the carbon in our apple pies rich in heavy atoms venture consciousness decipherment.',
+			index: 1,
+            },
+            {
+                preview: 'https://drive.google.com/uc?export=view&id=1eGtC67uzwGa83KK-9oyjxFPNu9HRnwMr',
+                title: 'Area of Interest',
+                description: 'Suspendisse dictum odio vitae nisi commodo sollicitudin. Nulla a ante porttitor, suscipit leo quis, rutrum lectus.',
+                index: 1,
+            },
+            {
                 preview: './example-1.png',
                 title: 'Step 1',
                 description: 'I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me. I am an example step, click in the top right corner to enlarge me. Click next if you no longer want to see me.',
