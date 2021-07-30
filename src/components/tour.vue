@@ -193,7 +193,8 @@
                         </tour-image>
                     </div>
                     <div class="content">
-                        <div class="title" :style="{ color: theme.color }" v-tooltip.bottom="step.title">{{ step.title }}</div>
+                        <div v-if="step.title.length >= 28" class="title" :style="{ color: theme.color }" v-tooltip.bottom="step.title">{{ step.title }}</div>
+                        <div v-if="step.title.length < 28" class="title" :style="{ color: theme.color }">{{ step.title }}</div>
                         <p class="description" v-html="getDesc(step.description)"></p>
                         <slot v-if="scaled" :name="`step-${key + 1}`"></slot>
                         <div class="footer">
