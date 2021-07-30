@@ -152,6 +152,9 @@
 .tour-blurred {
     filter: blur(4px);
 }
+.tooltip {
+    z-index: 999999;
+}
 </style>
 
 
@@ -190,7 +193,7 @@
                         </tour-image>
                     </div>
                     <div class="content">
-                        <p class="title" :style="{ color: theme.color }">{{ step.title }}</p>
+                        <div class="title" :style="{ color: theme.color }" v-tooltip.bottom="step.title">{{ step.title }}</div>
                         <p class="description" v-html="getDesc(step.description)"></p>
                         <slot v-if="scaled" :name="`step-${key + 1}`"></slot>
                         <div class="footer">
@@ -371,7 +374,7 @@ export default {
         },
 
         getDesc(text) {
-            let trim_count = 150
+            let trim_count = 250
 
             return (text.length > trim_count && !this.scaled) ? text.replace(/(<([^>]+)>)/ig, "").substring(0, trim_count) + '...' : text
         },

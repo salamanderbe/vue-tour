@@ -20,7 +20,8 @@
   "dependencies": {
     "axios": "^0.20.0",
     "vue": "^2.5.17",
-    "localforage": "^1.9.0"
+    "localforage": "^1.9.0",
+    "v-tooltip": "^2.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.4",
