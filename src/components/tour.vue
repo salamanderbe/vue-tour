@@ -457,6 +457,9 @@ export default {
         steps() {
             this.currentStep = 0;
             this.startCache();
+        },
+        scaled() {
+            this.scaled = this.isScaled;
         }
 	},
     created() {
