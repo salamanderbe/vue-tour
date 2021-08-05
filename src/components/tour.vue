@@ -199,7 +199,7 @@
                     </svg>
 
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
-                        <tour-image :index="key" :steps="filteredSteps" :step="step" :theme="theme">
+                        <tour-image :index="key" :steps="filteredSteps" :step="step" :theme="theme" :versioningCacheImage="versioningCacheImage">
                             <template slot="image-preview">
                                 <slot name="loading-preview"></slot>
                             </template>
