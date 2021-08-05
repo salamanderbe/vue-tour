@@ -164,19 +164,32 @@
         <div class="tour-preview" :style="{ 'border-radius': theme.radius }" :class="{ 'is-scaled' : scaled}">
             <template v-for="(step, key) in filteredSteps">
                 <div v-if="currentStep === key" class="step" :key="key">
-
-                    <svg @click="scale" class="scale" :class="{ 'is-scaled' : scaled }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+                    
+                    <!-- icon expand -->
+                    <svg @click="scale" v-if="!scaled" class="scale" :class="{ 'is-scaled' : scaled }" :style="styleIcon" viewBox="0 0 24 24">
                         <g>
                             <g>
                                 <g>
                                     <g>
-                                        <path :fill="fill" d="M2.36 8.712l-.65-.649a.562.562 0 0 0-.96.398v2.227c0 .31.252.562.563.562h2.226a.563.563 0 0 0 .398-.96l-.65-.65 2.514-2.513a.281.281 0 0 0 0-.398l-.53-.53a.281.281 0 0 0-.398 0zM10.688.75H8.46a.562.562 0 0 0-.398.96l.65.65-2.514 2.513a.281.281 0 0 0 0 .398l.53.53c.11.11.288.11.398 0L9.64 3.288l.65.649c.354.354.96.103.96-.398V1.313a.563.563 0 0 0-.563-.563z" />
+                                        <path :fill="fill" d="M10,21V19H6.41L10.91,14.5L9.5,13.09L5,17.59V14H3V21H10M14.5,10.91L19,6.41V10H21V3H14V5H17.59L13.09,9.5L14.5,10.91Z" />
                                     </g>
                                 </g>
                             </g>
                         </g>
                     </svg>
-
+                    <!-- icon collapse -->
+                    <svg @click="scale" v-if="scaled" class="scale" :class="{ 'is-scaled' : scaled }" :style="styleIcon" viewBox="0 0 24 24">
+                        <g>
+                            <g>
+                                <g>
+                                    <g>
+                                        <path :fill="fill" d="M19.5,3.09L15,7.59V4H13V11H20V9H16.41L20.91,4.5L19.5,3.09M4,13V15H7.59L3.09,19.5L4.5,20.91L9,16.41V20H11V13H4Z" />
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <!-- icon close -->
                     <svg @click="close" class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                         <g>
                             <g>
@@ -291,6 +304,11 @@ export default {
             default: '#FFF'
         },
 
+        styleIcon: {
+            required: false,
+            type: String,
+        },
+
         versioningCacheImage: {
             type: Number,
             default: 1
@@ -300,7 +318,13 @@ export default {
             required: false,
             type: Boolean,
             default: false
-        }
+        },
+
+        isScaled: {
+            required: false,
+            type: Boolean,
+            default: false
+        },
     },
 
     data: () => ({
@@ -435,5 +459,8 @@ export default {
             this.startCache();
         }
 	},
+    created() {
+        this.scaled = this.isScaled;
+    },
 }
 </script>
