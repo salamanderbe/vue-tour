@@ -45,7 +45,7 @@
         transform: rotate(45deg);
     }
     .scale {
-        right: 56px;
+        right: 63px;
         display: none;
         @media screen and(min-width: 768px) {
             display: block;
@@ -75,6 +75,7 @@
         }
     }
     .content {
+        position: relative;
         padding: 32px 40px 40px 40px;
         .title {
             font-family: inherit;
@@ -134,6 +135,28 @@
             }
         }
     }
+    .bg-button-close{
+        width: 30px;
+        height: 30px;
+        background: black;
+        opacity: 0.5;
+        border-radius: 50%;
+        position: absolute;
+        right: 0;
+        margin-top: 1.35em;
+        margin-right: 1.409em;
+    }
+    .bg-button-expand{
+        width: 30px;
+        height: 30px;
+        background: black;
+        opacity: 0.5;
+        border-radius: 50%;
+        position: absolute;
+        right: 0;
+        margin-top: 1.35em;
+        margin-right: 3.5em;
+    }
 }
 .tour-popover {
     position: fixed;
@@ -166,6 +189,8 @@
                 <div v-if="currentStep === key" class="step" :key="key">
                     
                     <!-- icon expand -->
+                    <div class="bg-button-close" @click="close"></div>
+                    <div class="bg-button-expand" @click="scale"></div>
                     <svg @click="scale" v-if="!scaled" class="scale" :class="{ 'is-scaled' : scaled }" :style="styleIcon" viewBox="0 0 24 24">
                         <g>
                             <g>
@@ -197,7 +222,6 @@
                             </g>
                         </g>
                     </svg>
-
                     <div class="teaser" :style="{ 'border-top-left-radius': theme.radius, 'border-top-right-radius': theme.radius }">
                         <tour-image :index="key" :steps="filteredSteps" :step="step" :theme="theme" :versioningCacheImage="versioningCacheImage">
                             <template slot="image-preview">
