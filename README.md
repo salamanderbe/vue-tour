@@ -17,7 +17,7 @@ https://salamanderbe.github.io/vue-tour
 ## Install & basic usage
 
 ```bash
-npm install @salamander.be/vue-tour
+npm install "@salamander.be/vue-tour"
 ```
 
 ```vue
