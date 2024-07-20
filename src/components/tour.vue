@@ -128,8 +128,8 @@
                 &:hover {
                     opacity: 0.7;
                 }
-                &.ml-auto {
-                    margin-left: auto;
+                &.ms-auto {
+                    margin-inline-start: auto;
                 }
             }
         }
@@ -194,7 +194,7 @@
                                 <div v-for="dot in stepCount" :key="dot" class="dot" :style="{ background: ((dot - 1 === currentStep) ? theme.color : '#e6eaee') }"></div>
                             </div>
                             <div v-if="currentStep > 0" class="footer-link" @click="prev()">{{ step.prev_cta ? step.prev_cta : text.prev_cta }}</div>
-                            <div class="footer-btn" :class="{ 'ml-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
+                            <div class="footer-btn" :class="{ 'ms-auto': currentStep === 0 }" @click="next()" :style="{ background: theme.color, 'border-radius': theme.radius }">{{ (currentStep !== steps.length - 1) ? step.next_cta ? step.next_cta : text.next_cta : text.restart_cta }}</div>
                         </div>
                     </div>
                 </div>
@@ -308,7 +308,7 @@ export default {
         close() {
             this.open = false
             document.querySelector(this.blurEl).classList.remove('tour-blurred')
-            localStorage.setItem('vue-tour-viewed', true);
+            localStorage.setItem(this.storage, true);
         },
 
         scale() {
